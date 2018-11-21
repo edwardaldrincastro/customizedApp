@@ -1,7 +1,7 @@
-import { ADD_LOCATION, ADD_IMAGE } from "../actions/actionTypes";
+import { ADD_LOCATION, ADD_IMAGE, ADD_PLACE_NAME } from "../actions/actionTypes";
 
 export const addLocation = (location) => {
-    console.log("pumasok sa addImage")
+    console.log("Initializing addLocation...")
     return {
         type: ADD_LOCATION,
         location: {
@@ -12,7 +12,7 @@ export const addLocation = (location) => {
 }
 
 export const addImage = (image) => {
-    console.log("pumasok sa addImage")
+    console.log("Initializing addImage...")
     return {
         type: ADD_IMAGE,
         image: {
@@ -21,3 +21,11 @@ export const addImage = (image) => {
         }
     }
 }
+export const addPlaceName = (placeName) => {
+    console.log("Initializing addPlaceName...")
+    return {
+        type: ADD_PLACE_NAME,
+        name: placeName
+    }
+}
+

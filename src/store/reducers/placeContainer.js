@@ -1,4 +1,4 @@
-import { ADD_IMAGE, DELETE_IMAGE, ADD_LOCATION, DELETE_LOCATION } from "../actions/actionTypes";
+import { ADD_IMAGE, DELETE_IMAGE, ADD_LOCATION, DELETE_LOCATION, ADD_PLACE_NAME, DELETE_PLACE_NAME } from "../actions/actionTypes";
 
 const initialState = {
     placeContainer: {
@@ -9,12 +9,12 @@ const initialState = {
         location: {
             latitude: null,
             longitude: null
-        }
+        },
+        name: null
     }
 };
 
 const reducer = (state = initialState, action) => {
-    console.log(`addimage reducers pumasok`)
     switch (action.type) {
         case ADD_IMAGE:
             return {
@@ -58,6 +58,22 @@ const reducer = (state = initialState, action) => {
                         latitude: null,
                         longitude: null
                     }
+                }
+            };
+        case ADD_PLACE_NAME:
+            return {
+                ...state,
+                placeContainer: {
+                    ...state.placeContainer,
+                    name: action.name
+                }
+            }
+        case DELETE_PLACE_NAME:
+            return {
+                ...state,
+                placeContainer: {
+                    ...state.placeContainer,
+                    name: null
                 }
             };
         default:

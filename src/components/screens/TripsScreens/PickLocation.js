@@ -35,10 +35,6 @@ class PickLocation extends Component {
                 locationChosen: true
             }
         })
-        // this.props.onLocationPicked({
-        //     latitude: coords.latitude,
-        //     longitude: coords.longitude
-        // })
         this.props.addLocationToRedux({latitude: coords.latitude, longitude: coords.longitude})
     }
     getLocationHandler = () => {
@@ -59,7 +55,6 @@ class PickLocation extends Component {
             })
     }
     render() {
-        console.log(this.state.focusedLocation)
         let marker = null
         if (this.state.locationChosen) {
             marker = <MapView.Marker coordinate={this.state.focusedLocation} />

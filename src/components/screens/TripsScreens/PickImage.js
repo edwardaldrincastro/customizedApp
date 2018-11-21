@@ -15,13 +15,12 @@ class PickImage extends Component {
             }
         };
     }
-
     pickImageHandler = () => {
         ImagePicker.showImagePicker({ title: "Pick image" }, res => {
             if (res.didCancel) {
                 console.log("User cancelled")
             } else if (res.error) {
-                console.log("error", res.error)
+                console.log("Error {pickImageHandler}", res.error)
             } else {
                 this.setState({
                     imagePicked: {
@@ -29,22 +28,18 @@ class PickImage extends Component {
                         base64: res.data
                     }
                 })
-                console.log(this.state.imagePicked)
                 this.props.addImageToRedux(this.state.imagePicked)
-                // this.props.onImagePicked({ uri: res.uri, base64: res.data })
             }
         })
     }
     iconHandler = () => {
-        if (this.props.imageFromRedux=== null) {
-            console.log("icon to")
+        if (this.props.imageFromRedux === null) {
             return (
                 <View style={styles.cameraIcon}>
                     <Icon name="md-camera" size={70} color="#727272" />
                 </View>
             )
         } else {
-            console.log("image to")
             return <ImageBackground source={this.state.imagePicked} style={styles.imageContainer} />
         }
     }
@@ -58,20 +53,18 @@ class PickImage extends Component {
         );
     }
 }
-
 const mapStateToProps = state => {
     return {
-      isLoading: state.ui.isLoading,
-      imageFromRedux: state.placeContainer.placeContainer.image.uri
+        imageFromRedux: state.placeContainer.placeContainer.image.uri
     }
-  }
-  const mapDispatchToProps = dispatch => {
+}
+const mapDispatchToProps = dispatch => {
     return {
-      addImageToRedux: (image) => dispatch(addImage(image))
+        addImageToRedux: (image) => dispatch(addImage(image))
     }
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(PickImage);
-  
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PickImage);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1

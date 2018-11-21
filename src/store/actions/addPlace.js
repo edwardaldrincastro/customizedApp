@@ -1,12 +1,10 @@
-import { SET_PLACE, REMOVE_PLACE, DELETE_IMAGE, DELETE_LOCATION } from "../actions/actionTypes";
+import { SET_PLACE, REMOVE_PLACE, DELETE_IMAGE, DELETE_LOCATION, DELETE_PLACE_NAME } from "../actions/actionTypes";
 import { uiStartLoading, uiStopLoading } from "./ui";
 
 export const addPlace = (placeName, image, latitude, longitude) => {
+    console.log("Initializing addPlace...")
     return dispatch => {
         dispatch(uiStartLoading())
-        console.log(`Action start placeName: ${placeName}`)
-        console.log(`Action start longitude: ${longitude}`)
-        console.log(`Action start latitude: ${latitude}`)
         fetch("https://us-central1-modifiedting-1541990454966.cloudfunctions.net/storeImage",
             {
                 method: "POST",
@@ -37,15 +35,15 @@ export const addPlace = (placeName, image, latitude, longitude) => {
                         method: "POST",
                         body: JSON.stringify(placeData)
                     })
-            })
-            .catch(err => {
-                console.log(err)
-                alert("Something went wrong in sending the data")
-                dispatch(uiStopLoading())
+                    .catch(err => {
+                        console.log(err)
+                        alert("Something went wrong in sending the data")
+                        dispatch(uiStopLoading())
+                    })
             })
             .then(res => res.json())
             .then(parsedRes => {
-                console.log(parsedRes)
+                console.log("addPlace success!", parsedRes);
                 dispatch(uiStopLoading())
                 dispatch(getPlaces())
             })
@@ -53,7 +51,7 @@ export const addPlace = (placeName, image, latitude, longitude) => {
 }
 
 export const getPlaces = () => {
-    console.log("pumasok sa getPlaces")
+    console.log("Initializing getPlaces...")
     return dispatch => {
         fetch("https://modifiedting-1541990454966.firebaseio.com/places.json")
             .catch(err => {
@@ -62,8 +60,7 @@ export const getPlaces = () => {
             })
             .then(res => res.json())
             .then(parsedRes => {
-                console.log("pumasok sa parsedRes get")
-                console.log(parsedRes)
+                console.log("getPlaces success!", parsedRes);
                 const places = []
                 for (let key in parsedRes) {
                     places.push({
@@ -71,40 +68,42 @@ export const getPlaces = () => {
                         id: key
                     })
                 }
-
-                console.log("after ng forloop get")
                 dispatch(setPlaces(places))
                 dispatch(deleteImage())
                 dispatch(deleteLocation())
-
-                console.log("done sa dispatch")
+                dispatch(deletePlaceName())
             })
     }
 }
 
 export const setPlaces = places => {
-    console.log("pumasok sa setPlaces")
-    console.log(`setPlaces: ${places}`)
+    console.log("Initializing setPlaces...")
     return {
         type: SET_PLACE,
         places: places,
     }
 }
 export const deleteImage = () => {
-    console.log("pumasok sa deleteImage")
+    console.log("Initiliazing deleteImage...")
     return {
         type: DELETE_IMAGE,
     }
 }
 export const deleteLocation = () => {
-    console.log("pumasok sa delete location")
+    console.log("Initializing deleteLocation...")
     return {
         type: DELETE_LOCATION,
     }
 }
+export const deletePlaceName = () => {
+    console.log("Initializing deletePlaceName...")
+    return {
+        type: DELETE_PLACE_NAME,
+    }
+}
 
 export const deletePlace = (key) => {
-    console.log("pumasok sa delete place", key)
+    console.log("Initializing deletePlace...", key)
     return dispatch => {
         dispatch(removePlace(key));
         fetch("https://modifiedting-1541990454966.firebaseio.com/places/" + key + ".json", {
@@ -116,13 +115,13 @@ export const deletePlace = (key) => {
             })
             .then(res => res.json())
             .then(parsedRes => {
-                console.log("Done sa deleteplace!");
+                console.log("deletePlace success!", parsedRes);
             })
     }
 }
 
 export const removePlace = key => {
-    console.log("pumasok sa remove place", key)
+    console.log("Initializing removePlace...", key)
     return {
         type: REMOVE_PLACE,
         id: key

@@ -13,6 +13,7 @@ import {
 import PickLocation from "../screens/TripsScreens/PickLocation";
 import PickImage from "../screens/TripsScreens/PickImage";
 import { addPlace } from "../../store/actions/addPlace";
+import { addPlaceName } from "../../store/actions/placeContainer";
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -36,17 +37,6 @@ class TripsScreen extends Component {
       modalVisible: !this.state.modalVisible
     })
   }
-  submitButtonState = () => {
-    if (this.state.places.placeName !== null &&
-      this.state.places.image !== null &&
-      this.state.places.location.latitude !== null &&
-      this.state.places.location.longitude !== null) {
-      this.setState({
-        submitButton: !this.state.submitButton
-      })
-    }
-
-  }
   addPlaceHandler = (placeName) => {
     this.setState(prevState => {
       return {
@@ -59,7 +49,7 @@ class TripsScreen extends Component {
     })
   }
   locationPickedHandler = (location) => {
-    console.log(`Pumasok sa location picked handler. Location:${location.latitude}+${location.longitude}`)
+    console.log('[TripsScreen]: Initializing locationPickedHandler...')
     this.setState(prevState => {
       return {
         ...prevState,
@@ -73,7 +63,7 @@ class TripsScreen extends Component {
         }
       }
     })
-    console.log("Done sa location picked handler")
+    console.log('[TripsScreen]: locationPickedHandler DONE...')
   }
   imagePickedHandler = () => {
     this.setState(prevState => {
@@ -86,37 +76,18 @@ class TripsScreen extends Component {
       }
     })
   }
-  cleanState = () => {
-    if (!this.props.isLoading) {
-      this.setState({
-        places: {
-          placeName: null,
-          image: null,
-          location: {
-            latitude: null,
-            longitude: null
-          }
-        }
-      })
-    }
-  }
   submitPlacehandler = () => {
-
-    console.log("submitPlaceHandler: START")
-
-    console.log(`submitPlacehandler STATE longi: ${this.state.places.location.longitude}`)
-
+    console.log('[TripsScreen]: Initializing submitPlacehandler...')
     if (this.state.places.placeName !== null &&
       this.props.image64 !== null &&
       this.props.locationFromRedux.latitude !== null &&
       this.props.locationFromRedux.longitude !== null) {
+      this.props.addPlaceNameToRedux(this.state.places.placeName)
       this.props.addPlaceToRedux(this.state.places.placeName, this.props.image64, this.props.locationFromRedux.latitude, this.props.locationFromRedux.longitude)
-      this.cleanState()
     } else {
       alert("Please complete the requirements")
     }
-    console.log("submitPlaceHandler: DONE")
-    console.log(`my state: ${this.state}`)
+    console.log('[TripsScreen]: submitPlacehandler DONE...')
   }
   render() {
     let submitButton = (<Icon name="md-arrow-round-up" size={30} color="#fff" style={styles.sendIcon} />);
@@ -127,7 +98,6 @@ class TripsScreen extends Component {
     }
     if (this.props.locationFromRedux.latitude && this.props.locationFromRedux.latitude !== null) {
       locateButton = (<Icon name="md-locate" size={30} color="#ff5252" />)
-      console.log(this.state.places.location)
     }
     return (
       <View style={styles.container}>
@@ -136,7 +106,7 @@ class TripsScreen extends Component {
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.imagePicker}>
-            <PickImage/>
+            <PickImage />
           </View>
           <View style={styles.inputContainer} >
             <View style={styles.iconContainer} >
@@ -150,7 +120,7 @@ class TripsScreen extends Component {
                   onChangeText={(val) => this.addPlaceHandler(val)}
                   underlineColorAndroid="white"
                   placeholder="What's on your mind?"
-                  value={this.state.places.placeName}
+                  value={this.props.placeNameFromRedux}
                   multiline={true}
                   scrollEnabled={true} />
               </View>
@@ -175,8 +145,7 @@ class TripsScreen extends Component {
             <View style={styles.modalOpacity} />
           </TouchableWithoutFeedback>
           <View style={styles.modalMap}>
-            {console.log(this.state.location)}
-            <PickLocation/>
+            <PickLocation />
           </View>
           <TouchableWithoutFeedback onPress={() => this.modalHandler()}>
             <View style={styles.modalOpacity} />
@@ -262,13 +231,15 @@ const mapStateToProps = state => {
   return {
     isLoading: state.ui.isLoading,
     image64: state.placeContainer.placeContainer.image.base64,
-    locationFromRedux: state.placeContainer.placeContainer.location
+    locationFromRedux: state.placeContainer.placeContainer.location,
+    placeNameFromRedux: state.placeContainer.placeContainer.name
 
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addPlaceToRedux: (placeName, image, latitude, longitude) => dispatch(addPlace(placeName, image, latitude, longitude))
+    addPlaceToRedux: (placeName, image, latitude, longitude) => dispatch(addPlace(placeName, image, latitude, longitude)),
+    addPlaceNameToRedux: (placeName) => dispatch(addPlaceName(placeName))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TripsScreen);
