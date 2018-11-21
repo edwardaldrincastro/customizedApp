@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     categories: {
         height: 120,
         width: 120,
-        backgroundColor: "white",
+        backgroundColor: "#212424",
         margin: 10,
         borderWidth: 1,
         borderColor: "#bbb",
@@ -34,8 +34,10 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 15,
-        fontWeight: 'bold',
-        margin: 5
+        // fontWeight: 'bold',
+        margin: 5,
+        fontFamily: 'Inconsolata-Bold',
+        color: "#41C7C7",
     }
 })
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet, ScrollView } from 'react-native';
 import { saved_list } from "../data/dataSample";
 import { messages } from "../data/dataSample";
-import { addPlace, getPlaces } from "../../store/actions/addPlace";
+import { getPlaces } from "../../store/actions/addPlace";
 import { connect } from "react-redux";
 import PlacesFeed from "./SavedScreens/PlacesFeed";
 
@@ -17,16 +17,16 @@ class SavedScreen extends Component {
   componentDidMount() {
     this.props.onLoadPlaces()
   }
-  //  componentDidUpdate() {
-  //    this.props.onLoadPlaces()
-  //  }
   render() {
+    let savedLoading = (<PlacesFeed />)
+    if (this.props.isLoading) {
+      savedLoading = (<View style={{ paddingTop: 45, margin: "50%" }}><ActivityIndicator /></View>)
+    }
     return (
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <Text style={styles.title}> Feed </Text>
-
-        <ScrollView style={{ margin: 10, backgroundColor: "white" }}>
-          <PlacesFeed />
+      <View style={{ flex: 1, backgroundColor: "#212424" }}>
+        <Text style={styles.title}>Feed</Text>
+        <ScrollView style={{ margin: 10,}}>
+          {savedLoading}
         </ScrollView>
       </View>
     );
@@ -35,19 +35,24 @@ class SavedScreen extends Component {
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     marginTop: 5,
     marginLeft: 10,
-    color: "#6d6d6d"
+    color: "#FE6A6A",
+    fontFamily: 'Inconsolata-Bold',
   },
 })
-
+const mapStateToProps = state => {
+  return {
+    isLoading: state.ui.isLoading,
+  }
+}
 const mapDispatchToProps = dispatch => {
   return {
     onLoadPlaces: () => dispatch(getPlaces())
   }
 }
-export default connect(null, mapDispatchToProps)(SavedScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SavedScreen);
 
 
 {/* {this.state.savedList.map((item, index) => (

@@ -53,10 +53,13 @@ export const addPlace = (placeName, image, latitude, longitude) => {
 export const getPlaces = () => {
     console.log("Initializing getPlaces...")
     return dispatch => {
+
+        dispatch(uiStartLoading())
         fetch("https://modifiedting-1541990454966.firebaseio.com/places.json")
             .catch(err => {
                 console.log(err)
                 alert("Something went wrong in getting the data")
+                dispatch(uiStopLoading())
             })
             .then(res => res.json())
             .then(parsedRes => {
@@ -68,6 +71,7 @@ export const getPlaces = () => {
                         id: key
                     })
                 }
+                dispatch(uiStopLoading())
                 dispatch(setPlaces(places))
                 dispatch(deleteImage())
                 dispatch(deleteLocation())

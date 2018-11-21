@@ -68,35 +68,35 @@ class LoginScreen extends Component {
             // let user = this.state.users
             // const result = user.filter(word => this.state.email === word.email)
             // user.map((item, index) => {
-                // const result = user.find(element => element.email === this.state.email)
-                if (this.props.email === this.state.email && this.props.password === this.state.password) {
-                    // if (data.email === this.state.email && data.password === this.state.password) {
-                        return this.props.navigation.navigate('Entry')
-                    } else {
+            // const result = user.find(element => element.email === this.state.email)
+            if (this.props.email === this.state.email && this.props.password === this.state.password) {
+                // if (data.email === this.state.email && data.password === this.state.password) {
+                return this.props.navigation.navigate('Entry')
+            } else {
 
-                        alert(`Your email or password is incorrect.`)
-                        this.setState({
-                            email: "",
-                            password: "",
-                            underlineColor: "white"
-                        })
+                alert(`Your email or password is incorrect.`)
+                this.setState({
+                    email: "",
+                    password: "",
+                    underlineColor: "white"
+                })
 
-                    }
-                } else {
-                    alert("Please input email and/or password.")
-                    this.setState({
-                        underlineColor: "#e53935"
-                    })
-
-                
             }
+        } else {
+            alert("Please input email and/or password.")
+            this.setState({
+                underlineColor: "#e53935"
+            })
+
+
+        }
     }
 
     render() {
         // alert(this.props.firstName)
         return (
             <View style={{ flex: 1 }}>
-                <Header style={{ backgroundColor: "#00bfa5" }}>
+                <Header style={{ backgroundColor: "#212424" }}>
                     <Left style={{ marginRight: "85%" }}>
                         <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.replace('Auth')} />
                     </Left>
@@ -111,14 +111,15 @@ class LoginScreen extends Component {
                             textContentType="emailAddress"
                             onChangeText={(val) => this.emailChangedHandler(val)}
                             underlineColorAndroid={this.state.underlineColor}
-                            value={this.state.email} />
+                            value={this.state.email}
+                            style={styles.inputText} />
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <Text style={this.state.viewMode === "portrait" ? styles.portraitPassword : styles.landscapePassword}>PASSWORD</Text>
 
                         <TouchableOpacity onPress={this.showPasswordHandler}>
-                            <View style={{ width: 30 }}>
-                                <Text style={{ color: "white", fontSize: 10 }}>{this.state.filter}</Text>
+                            <View style={{ width: 40, }}>
+                                <Text style={{ color: "#E1E1E1", textAlign: 'center', fontSize: 12, fontFamily: "Inconsolata-Regular" }}>{this.state.filter}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -128,36 +129,22 @@ class LoginScreen extends Component {
                             onChangeText={(val) => this.passwordChangedHandler(val)}
                             secureTextEntry={this.state.showPass}
                             underlineColorAndroid={this.state.underlineColor}
-                            value={this.state.password} />
+                            value={this.state.password}
+                            style={styles.inputText} />
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.loginHandler()}>
                             <View style={styles.buttonStyle}>
                                 <Text>
-                                    <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
+                                    <Icon name="ios-arrow-forward" size={24} color="#E1E1E1" />
                                 </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                    {/* <View style={styles.nextButton}>
-                        <TouchableOpacity onPress={() => this.checker()}>
-                            <View style={styles.buttonStyle}>
-                                <Text>
-                                    <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View> */}
                 </View>
             </View>
         );
     }
-    
-    // componentDidMount() {
-    //     this.asyncLoginhandler()
-    //     .catch (console.log("error did mount"))
-    // }
-
 }
 const mapStateToProps = state => {
     return {
@@ -175,37 +162,42 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00bfa5',
+        backgroundColor: '#212424',
     },
     portraitWelcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
         marginRight: "70%",
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: "Inconsolata-Regular"
     },
     landscapeWelcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
         marginRight: "80%",
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: "Inconsolata-Regular"
     },
     portraitTitle: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 12,
-        marginRight: "72%"
+        marginRight: "72%",
+        fontFamily: "Inconsolata-Regular"
     },
     landscapeTitle: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 12,
-        marginRight: "76%"
+        marginRight: "76%",
+        fontFamily: "Inconsolata-Regular"
     },
     portraitPassword: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 12,
-        marginRight: 200
+        marginRight: 200,
+        fontFamily: "Inconsolata-Regular"
     },
     landscapePassword: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 12,
         marginRight: 400
     },
@@ -224,16 +216,20 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 100,
         borderWidth: 1,
-        borderColor: "#fff",
+        borderColor: "#41C7C7",
         marginLeft: "70%",
         marginTop: 30,
         justifyContent: "center",
-        backgroundColor: '#fff',
+        backgroundColor: '#41C7C7',
     },
     buttonStyle: {
         justifyContent: 'center',
         alignItems: "center"
     },
+    inputText: {
+        color: "#FE6A6A",
+        fontFamily: "Inconsolata-Regular"
+    }
 });
 
 export default connect(mapStateToProps)(LoginScreen);

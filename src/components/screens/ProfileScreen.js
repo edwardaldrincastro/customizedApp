@@ -9,9 +9,9 @@ class ProfileScreen extends Component {
   }
   render() {
     return (
-      <View>
-        <Text style={styles.title}> Profile Screen </Text>
-        <View style={{ alignItems: "center", justifyContent: 'center', }}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Profile Screen </Text>
+        <View style={{ flex: 1, alignItems: "center", justifyContent: 'center', }}>
           <Button title="Log Out" onPress={() => this.props.navigation.navigate('App')} />
         </View>
       </View>
@@ -19,14 +19,18 @@ class ProfileScreen extends Component {
   }
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#212424'
+  },
   title: {
     fontSize: 40,
-    fontWeight: "bold",
+    fontFamily: "Inconsolata-Bold",
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
-    color: "#6d6d6d"
+    color: "#FE6A6A"
   }
 })
 export default ProfileScreen;

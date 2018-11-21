@@ -14,9 +14,9 @@ class ExploreScreen extends Component {
   }
   render() {
     return (
-      <View style={{ backgroundColor: "white" }}>
+      <View style={{ backgroundColor: "#212424" }}>
         <ScrollView>
-          <Text style={styles.title}> Explore </Text>
+          <Text style={styles.title}>Explore</Text>
           <View>
             <CategoriesSelection categories={this.state.categories} />
           </View>
@@ -40,18 +40,21 @@ class ExploreScreen extends Component {
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
-    color: "#494949"
+    color: "#FE6A6A",
+    fontFamily: 'Inconsolata-Bold',
   },
   location: {
     fontSize: 30,
     marginLeft: 20,
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,
+    fontFamily: 'Inconsolata-Regular',
+    color: "#41C7C7",
   }
 })
 export default ExploreScreen;

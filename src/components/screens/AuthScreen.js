@@ -60,27 +60,30 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00bfa5',
+        backgroundColor: "#212424"
+        // backgroundColor: '#00bfa5',
     },
     portraitWelcome: {
-        color: "#fff",
-        fontSize: 22,
+        color: "#FE6A6A",
+        fontSize: 24,
         marginRight: 145,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: "Inconsolata-Regular"
     },
     landscapeWelcome: {
-        color: "#fff",
-        fontSize: 22,
+        color: "#FE6A6A",
+        fontSize: 24,
         marginRight: 330,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: "Inconsolata-Regular"
     },
     loginButton: {
         width: "80%",
         height: 35,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: "#fff",
-        backgroundColor: "#fff",
+        borderColor: "#41C7C7",
+        backgroundColor: "#41C7C7",
         marginTop: 10,
         justifyContent: "center"
     },
@@ -89,27 +92,30 @@ const styles = StyleSheet.create({
         height: 35,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: "#fff",
+        borderColor: "#41C7C7",
         marginTop: 10,
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: "#41C7C7"
     },
     buttonStyle: {
         justifyContent: 'center',
         alignItems: "center"
     },
     signUpButtonText: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 14,
+        fontFamily: "Inconsolata-Regular"
     },
     loginButtonText: {
-        color: "#00bfa5",
-        fontSize: 14,
+        color: "#E1E1E1",
+        fontSize: 16,
+        fontFamily: "Inconsolata-Regular"
     },
     brandIcon: {
         height: 150,
         width: 150,
         marginBottom: 40,
-        marginRight: 20
+        // marginRight: 20
     }
 });
 

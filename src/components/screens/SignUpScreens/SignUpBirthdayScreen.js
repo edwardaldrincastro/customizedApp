@@ -42,7 +42,7 @@ class SignUpBirthdayScreen extends Component {
         const email = this.props.navigation.getParam("email", "no email")
         return (
             <View style={{ flex: 1 }}>
-                <Header style={{ backgroundColor: "#00bfa5" }}>
+                <Header style={{ backgroundColor: "#212424" }}>
                     <Left style={{ marginRight: "85%" }}>
                         <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.goBack()} />
                     </Left>
@@ -83,7 +83,7 @@ class SignUpBirthdayScreen extends Component {
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.submitHandler(lastName, firstName, email)}>
                             <View style={styles.buttonStyle}>
-                                <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
+                                <Icon name="ios-arrow-forward" size={24} color="#E1E1E1" />
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -97,45 +97,53 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00bfa5',
+        backgroundColor: '#212424',
     },
     title: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 13,
         marginRight: "71%",
-        marginTop: 15
+        marginTop: 15,
+        fontFamily: "Inconsolata-Regular"
     },
     description: {
-        color: "white",
+        color: "#E1E1E1",
         fontSize: 14,
-        marginLeft: 21
+        marginLeft: 21,
+        fontFamily: "Inconsolata-Regular"
     },
     portraitWelcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
-        marginRight: "35%",
-        marginBottom: 20
+        marginRight: "30%",
+        marginBottom: 20,
+        fontFamily: "Inconsolata-Regular"
     },
     landscapeWelcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
         marginRight: "50%",
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: "Inconsolata-Regular"
     },
     nextButton: {
         width: 40,
         height: 40,
         borderRadius: 100,
         borderWidth: 1,
-        borderColor: "#fff",
+        borderColor: "#41C7C7",
         marginLeft: "70%",
         marginTop: 30,
         justifyContent: "center",
-        backgroundColor: '#fff',
+        backgroundColor: '#41C7C7',
     },
     buttonStyle: {
         justifyContent: 'center',
         alignItems: "center"
+    },
+    inputText: {
+        color: "#FE6A6A",
+        fontFamily: "Inconsolata-Regular"
     }
 
 });

@@ -39,15 +39,16 @@ const TabNavigator = createBottomTabNavigator({
       },     
     }),
     tabBarOptions: {
-      activeTintColor: '#ff5252',
-      inactiveTintColor: 'gray',
+      activeTintColor: '#FE6A6A',
+      inactiveTintColor: '#E1E1E1',
       showLabel: true,
       labelStyle: {
         fontSize: 8,
         marginBottom: 8
       },
       style: {
-        height: 50
+        height: 50,
+        backgroundColor: "#212424"
     }
     },  
   },

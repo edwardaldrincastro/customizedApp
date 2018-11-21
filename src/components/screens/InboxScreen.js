@@ -11,23 +11,23 @@ class InboxScreen extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <Text style={styles.title}> Inbox </Text>
+      <View style={{ flex: 1, backgroundColor: "#212424" }}>
+        <Text style={styles.title}>Inbox </Text>
         <Text style={styles.notif}> You have no unread messages </Text>
-        <ScrollView showsHorizontalScrollIndicator={false} style={{ margin: 10, backgroundColor: "white" }}>
+        <ScrollView showsHorizontalScrollIndicator={false} style={{ margin: 10 }}>
           {this.state.messages.map((item, index) => (
             <View key={index}>
               <View style={{ flexDirection: "row", margin: 10 }}>
                 <Image style={styles.image} source={{ uri: item.img }} />
                 <View style={styles.message}>
                   <View style={styles.date}>
-                    <Text style={{ fontWeight: 'bold' }}>{item.name}</Text>
-                    <Text>{item.date}</Text>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Text style={styles.dateText}>{item.date}</Text>
                   </View>
-                  <Text numberOfLines={1} style={{ marginTop: 15 }}>{item.message}</Text>
+                  <Text numberOfLines={1} style={styles.messageText}>{item.message}</Text>
                 </View>
               </View>
-              <View style={{ borderBottomColor: '#eeeeee', borderBottomWidth: 1 }}/>
+              <View style={{ borderBottomColor: '#eeeeee', borderBottomWidth: 1 }} />
             </View>
           ))}
         </ScrollView>
@@ -38,32 +38,46 @@ class InboxScreen extends Component {
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
-    fontWeight: "bold",
     marginTop: 5,
     marginLeft: 10,
     marginBottom: 10,
-    color: "#6d6d6d"
+    color: "#FE6A6A",
+    fontFamily: "Inconsolata-Bold"
   },
   notif: {
     fontSize: 14,
     marginTop: 5,
     marginLeft: 20,
-    color: "#6d6d6d"
+    color: "#41C7C7",
+    fontFamily: "Inconsolata-Regular"
   },
-  image: { 
-    width: 60, 
-    height: 60, 
-    borderRadius: 100 
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+  },
+  name: {
+    fontWeight: 'bold',
+    color: '#41C7C7',
   },
   message: {
-    marginLeft: 10, 
-    marginRight: 10, 
-    flexDirection: "column", 
-    flex: 1 
+    marginLeft: 10,
+    marginRight: 10,
+    flexDirection: "column",
+    flex: 1,
   },
-  date : { 
-    flexDirection: "row", 
-    justifyContent: "space-between" 
+  messageText: {
+    marginTop: 15,
+    color: '#E1E1E1',
+    fontFamily: "Inconsolata-Regular"
+  },
+  date: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  dateText: {
+    fontFamily: "Inconsolata-Regular",
+    color: "#41C7C7",
   }
 })
 export default InboxScreen;

@@ -32,29 +32,35 @@ const styles = StyleSheet.create({
     rooms: {
         height: 185,
         width: 145,
-        backgroundColor: "white",
+        backgroundColor: "#212424",
         marginLeft: 10,
         marginRight: 10,
     },
     roomSize: {
         fontSize: 8,
         fontWeight: 'bold',
-        marginTop: 10
+        color: "#E1E1E1",
+        marginTop: 10,
     },
     description: {
         fontSize: 16,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginTop: 10,
-        color: "#595959"
+        color: "#E1E1E1",
+        fontFamily: 'Inconsolata-Bold',
     },
     rate: {
         fontSize: 13,
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: 'Inconsolata-Regular',
+        color: "#E1E1E1",
     },
     location: {
         fontSize: 30,
         marginLeft: 15,
         marginBottom: 15,
+        fontFamily: 'Inconsolata-Regular',
+        color: "#E1E1E1",
     }
 })
 

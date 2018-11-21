@@ -12,12 +12,12 @@ const PlaceList = (props) => {
                             <View style={{ flexDirection: "row", margin: 10 }}>
                                 <Image style={styles.image} source={{ uri: item.image }} />
                                 <View style={styles.message}>
-                                    <Text numberOfLines={1} style={{ fontWeight: "bold", }}>{item.placeName}</Text>
-                                    <Text>Lat: {item.location.latitude}</Text>
-                                    <Text>Long: {item.location.longitude}</Text>
+                                    <Text numberOfLines={1} style={styles.name}>{item.placeName}</Text>
+                                    <Text style={styles.description}>Lat: {item.location.latitude}</Text>
+                                    <Text style={styles.description}>Long: {item.location.longitude}</Text>
                                 </View>
                             </View>
-                            <View style={{ borderBottomColor: '#eeeeee', borderBottomWidth: 1 }} />
+                            <View style={{ borderBottomColor: '#E1E1E1', borderBottomWidth: 1 }} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -40,6 +40,15 @@ const styles = StyleSheet.create({
     map: {
         width: "90%",
         height: 190
+    },
+    name: {
+        fontSize: 16,
+        fontFamily: 'Inconsolata-Bold',
+        color: '#41C7C7'
+    },
+    description: {
+        color: '#E1E1E1',
+        fontFamily: 'Inconsolata-Regular'
     }
 })
 

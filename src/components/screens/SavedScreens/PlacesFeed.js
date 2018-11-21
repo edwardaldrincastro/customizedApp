@@ -27,7 +27,6 @@ class PlacesFeed extends Component {
     this.setState({ modalVisible: modalInput });
   }
   selectedHandler = (id, placeName, image, latitude, longitude) => {
-    console.log("selectedHandler: ", id)
     this.setState(prevState => {
       return {
         selectedId: id,
@@ -78,11 +77,7 @@ class PlacesFeed extends Component {
                     ref={ref => this.map = ref}>
                     <MapView.Marker coordinate={this.state.focusedLocation} /></MapView>
                 </View>
-                {/* <View style={{ width: "100%", justifyContent: 'center',}}>
-                  <Text style={styles.enterMail}>Location: {this.state.focusedLocation.latitude}</Text>
-                  <Text style={styles.enterMail}>Location: {this.state.focusedLocation.longitude}</Text>
-                </View> */}
-                <TouchableOpacity onPress={() => alert('Passowrd recovery sent')}>
+                <TouchableOpacity onPress={() => this.deleteHandler()}>
                   <View style={styles.deleteButton}>
                     <Text style={styles.buttonText}>DELETE PLACE</Text>
                   </View>

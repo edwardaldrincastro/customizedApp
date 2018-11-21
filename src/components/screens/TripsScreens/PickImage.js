@@ -36,7 +36,7 @@ class PickImage extends Component {
         if (this.props.imageFromRedux === null) {
             return (
                 <View style={styles.cameraIcon}>
-                    <Icon name="md-camera" size={70} color="#727272" />
+                    <Icon name="md-camera" size={70} color="#41C7C7" />
                 </View>
             )
         } else {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     imageContainer: {
         height: "100%",

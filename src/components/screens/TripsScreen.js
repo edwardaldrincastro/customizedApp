@@ -92,12 +92,12 @@ class TripsScreen extends Component {
   render() {
     let submitButton = (<Icon name="md-arrow-round-up" size={30} color="#fff" style={styles.sendIcon} />);
 
-    let locateButton = (<Icon name="md-locate" size={30} color="#000" />)
+    let locateButton = (<Icon name="md-locate" size={30} color="#E1E1E1" />)
     if (this.props.isLoading) {
       submitButton = <ActivityIndicator />
     }
     if (this.props.locationFromRedux.latitude && this.props.locationFromRedux.latitude !== null) {
-      locateButton = (<Icon name="md-locate" size={30} color="#ff5252" />)
+      locateButton = (<Icon name="md-locate" size={30} color="#FE6A6A" />)
     }
     return (
       <View style={styles.container}>
@@ -118,11 +118,13 @@ class TripsScreen extends Component {
               <View style={styles.inputBox}>
                 <TextInput
                   onChangeText={(val) => this.addPlaceHandler(val)}
-                  underlineColorAndroid="white"
+                  underlineColorAndroid="transparent"
                   placeholder="What's on your mind?"
+                  placeholderTextColor="#FE6A6A"
                   value={this.props.placeNameFromRedux}
                   multiline={true}
-                  scrollEnabled={true} />
+                  scrollEnabled={true} 
+                  style={styles.inputText}/>
               </View>
             </View>
             <View style={styles.iconContainer} >
@@ -160,21 +162,21 @@ class TripsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#212424"
   },
   title: {
     fontSize: 40,
-    fontWeight: "bold",
+    fontFamily: 'Inconsolata-Bold',
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
-    color: "#6d6d6d"
+    color: "#FE6A6A"
   },
   imagePicker: {
     height: 399,
     width: "100%",
-    borderColor: "#eee",
+    borderColor: "#E1E1E1",
     borderWidth: 1
   },
   inputContainer: {
@@ -199,8 +201,13 @@ const styles = StyleSheet.create({
     height: "80%",
     width: "100%",
     borderRadius: 50,
-    borderColor: "#424242",
+    borderColor: "#E1E1E1",
     borderWidth: 1
+  },
+  inputText: {
+    color: '#FE6A6A',
+    fontFamily: 'Inconsolata-Regular',
+    marginLeft: 10
   },
   modalOpacity: {
     width: "100%",
@@ -219,9 +226,9 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     height: 30,
     width: 30,
-    backgroundColor: "#00c853",
+    backgroundColor: "#41C7C7",
     borderWidth: 1,
-    borderColor: "#00c853",
+    borderColor: "#41C7C7",
     borderRadius: 100
   }
 

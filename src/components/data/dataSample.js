@@ -4,7 +4,7 @@ export const data_samples = [
     name: "Room 1",
     room_size: "ENTIRE APARTMENT • 1 BEDROOM",
     img: "https://placeimg.com/250/150/arch/1",
-    description: "Centric studio with roof top terrace",
+    description: "Centric studio with terrace",
     rate: "85 CHF person"
   },
   {
@@ -36,7 +36,7 @@ export const data_samples = [
     name: "Room 5",
     room_size: "ENTIRE APARTMENT • 4 BEDROOM",
     img: "https://placeimg.com/250/150/arch/5",
-    description: "Stay in a different dimension",
+    description: "Stay differently",
     rate: "105 CHF person"
   },
   {

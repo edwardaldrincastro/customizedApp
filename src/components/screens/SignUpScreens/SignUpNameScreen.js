@@ -53,32 +53,34 @@ class SignUpNameScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Header style={{ backgroundColor: "#00bfa5" }}>
+                <Header style={{ backgroundColor: "#212424" }}>
                     <Left style={{ marginRight: "85%" }}>
                         <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.goBack()} />
                     </Left>
                 </Header>
                 <View style={styles.container}>
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>What is your name?</Text>
-                    <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>FIRST NAME</Text>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}> FIRST NAME</Text>
 
                     <View style={styles.firstNameInput}>
                         <TextInput
                             onChangeText={(val) => this.firstNameChangedHandler(val)}
                             underlineColorAndroid="white"
-                            value={this.state.firstName} />
+                            value={this.state.firstName}
+                            style={styles.inputText} />
                     </View>
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>LAST NAME</Text>
                     <View style={styles.lastNameInput}>
                         <TextInput
                             onChangeText={(val) => this.lastNameChangedHandler(val)}
                             underlineColorAndroid="white"
-                            value={this.state.lastName} />
+                            value={this.state.lastName}
+                            style={styles.inputText} />
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.credentialsHandler()}>
                             <View style={styles.buttonStyle}>
-                                <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
+                                <Icon name="ios-arrow-forward" size={24} color="#E1E1E1" />
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -92,55 +94,63 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00bfa5',
+        backgroundColor: '#212424',
     },
     portraitWelcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
         marginRight: "41%",
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: "Inconsolata-Regular",
     },
     landscapeWelcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
         marginRight: "60%",
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: "Inconsolata-Regular",
     },
     portraitTitle: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 12,
-        marginRight: "62%"
+        marginRight: "65%",
+        fontFamily: "Inconsolata-Regular",
     },
     landscapeTitle: {
-        color: "#fff",
+        color: "#E1E1E1",
         fontSize: 12,
-        marginRight: "70%"
+        marginRight: "70%",
+        fontFamily: "Inconsolata-Regular",
     },
     firstNameInput: {
         width: "82%",
         height: 35,
-        justifyContent: "center"
+        justifyContent: "center",
     },
     lastNameInput: {
         width: "82%",
         height: 35,
-        justifyContent: "center"
+        justifyContent: "center",
     },
     nextButton: {
         width: 40,
         height: 40,
         borderRadius: 100,
         borderWidth: 1,
-        borderColor: "#fff",
+        borderColor: "#41C7C7",
         marginLeft: "70%",
         marginTop: 30,
         justifyContent: "center",
-        backgroundColor: '#fff',
+        backgroundColor: '#41C7C7',
     },
     buttonStyle: {
         justifyContent: 'center',
         alignItems: "center"
     },
+    inputText: {
+        color: "#FE6A6A",
+        fontFamily: "Inconsolata-Regular"
+    }
 });
 
 export default SignUpNameScreen;
