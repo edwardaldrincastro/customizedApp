@@ -51,6 +51,8 @@ class SignUpNameScreen extends Component {
         }
     }
     render() {
+        alert("asdasd")
+        console.log("name",this.props.navigation.state)
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#212424" }}>

@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
-import brandIcon from '../../assets/compass.png';
+import brandIcon from '../../assets/iconBulb.png';
+import { connect } from "react-redux";
 
 class AuthScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loginMode: false,
             viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
         Dimensions.addEventListener("change", this.updateStyles)
 
     }
-    
+    componentDidMount() {
+        this.setState({
+            loginMode: this.props.isLoginSuccessful
+        })
+        console.log("app has started")
+    }
+    componentDidUpdate() {
+        if (this.props.isLoginSuccessful) {
+            this.props.navigation.navigate('Entry')
+            console.log("app session", this.props.isLoginSuccessful)
+        }
+    }
     componentWillUnmount() {
         Dimensions.removeEventListener("change", this.updateStyles)
     }
@@ -26,10 +39,13 @@ class AuthScreen extends Component {
         header: null
     }
     loginHandler = () => {
-        
+
         this.props.navigation.navigate('Login')
     }
+
     render() {
+        console.log("app has started")
+        console.log(this.props.isLoginSuccessful)
         return (
             <View style={styles.container}>
                 <Image source={brandIcon} style={styles.brandIcon} />
@@ -112,11 +128,17 @@ const styles = StyleSheet.create({
         fontFamily: "Inconsolata-Regular"
     },
     brandIcon: {
-        height: 150,
-        width: 150,
+        height: 220,
+        width: 220,
         marginBottom: 40,
         // marginRight: 20
     }
 });
 
-export default AuthScreen;
+const mapStateToProps = state => {
+    return {
+        isLoginSuccessful: state.ui.isLoginSuccessful
+    }
+}
+
+export default connect(mapStateToProps, null)(AuthScreen);

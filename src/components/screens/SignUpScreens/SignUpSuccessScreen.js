@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage, Image } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 
 import { connect } from "react-redux";
-import { addUser } from "../../../store/actions/signUp";
+import { addUser, authSignUp } from "../../../store/actions/signUp";
 
 const lastName = ""
 const firstName = ""
@@ -25,32 +25,37 @@ class SignUpSuccessScreen extends Component {
 
     saveUserId = async () => {
         try {
-          await AsyncStorage.setItem(key, JSON.stringify(account));
-          console.log("Done store")
+            await AsyncStorage.setItem(key, JSON.stringify(account));
+            console.log("Done store")
         } catch (error) {
-          // Error retrieving data
-          console.log(error.message);
+            // Error retrieving data
+            console.log(error.message);
         }
-      };
+    };
     accountCreationHandler = (lastName, firstName, email) => {
-       this.setState({
-           lastName: lastName,
-           firstName: firstName,
-           email: email
-       })
+        this.setState({
+            lastName: lastName,
+            firstName: firstName,
+            email: email
+        })
     }
 
     submitHandler = () => {
         const resetAction = StackActions.reset({
             index: 0,
             actions: [NavigationActions.navigate({ routeName: 'Login' })],
-          });
-          this.props.navigation.dispatch(resetAction);
+        });
+        this.props.navigation.dispatch(resetAction);
     }
     render() {
         return (
             <View style={styles.container}>
                 {/* {this.accountCreationHandler(lastName, firstName, email, birthday)} */}
+                <View style={styles.imageContainer}>
+                    <Image source={require("../../../assets/star.png")}
+                        resizeMode="contain"
+                     style={{ width: "100%", height: "100%" }} />
+                </View>
                 <View styles={styles.view}>
                     <Text style={styles.welcome}> Sign up Successful </Text>
                 </View>
@@ -78,7 +83,7 @@ class SignUpSuccessScreen extends Component {
         // this.props.accountCreationHandler(lastName, firstName, email)
         // alert(this.state.lname)
         // alert(birthday)
-        this.props.createAccount(lastName, firstName, email, birthday)
+        // this.props.createAccount(lastName, firstName, email, birthday)
         // alert(this.state.lname)
         // this.props.myAction(this.state.num, this.state.numbato, this.state.numbate)
         // this.saveUserId()
@@ -90,43 +95,34 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#00bfa5',
+        backgroundColor: '#212424',
     },
     welcome: {
-        color: "#fff",
+        color: "#FE6A6A",
         fontSize: 20,
         marginBottom: 20
     },
+    imageContainer: {
+        width: "50%",
+        height: "20%",
+        marginBottom: 40
+    },
     loginButton: {
-        width: "80%",
+        width: "60%",
         height: 35,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: "#fff",
-        backgroundColor: "#fff",
+        borderColor: "#41C7C7",
+        backgroundColor: "#41C7C7",
         marginTop: 10,
         justifyContent: "center"
-    },
-    signUpButton: {
-        width: 40,
-        height: 40,
-        borderRadius: 100,
-        borderWidth: 1,
-        borderColor: "#fff",
-        marginTop: 10,
-        justifyContent: "center",
-        backgroundColor: '#fff',
     },
     buttonStyle: {
         justifyContent: 'center',
         alignItems: "center"
     },
-    signUpButtonText: {
-        color: "#00bfa5",
-        fontSize: 14,
-    },
     loginButtonText: {
-        color: "#00bfa5",
+        color: "#E1E1E1",
         fontSize: 14,
     },
     buttonContainer: {
@@ -138,7 +134,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        createAccount: (lastName, firstName, email, birthday) => dispatch(addUser(lastName, firstName, email, birthday))
+        createAccount: (lastName, firstName, email, birthday) => dispatch(authSignUp(lastName, firstName, email, birthday))
     }
 }
 export default connect(null, mapDispatchToProps)(SignUpSuccessScreen);

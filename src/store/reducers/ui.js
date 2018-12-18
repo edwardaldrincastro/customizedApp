@@ -1,7 +1,19 @@
-import { UI_START_LOADING, UI_STOP_LOADING } from "../actions/actionTypes";
+import {
+    UI_START_LOADING,
+    UI_STOP_LOADING,
+    EMAIL_CONFIRMED,
+    EMAIL_NOT_CONFIRMED,
+    REMOVE_ID_TOKEN,
+    LOGIN_SUCCESSFUL,
+    PASSWORD_CONFIRMED
+} from "../actions/actionTypes";
 
 const initialState = {
-    isLoading: false
+    isLoading: false,
+    isEmailConfirmed: false,
+    idToken: null,
+    isLoginSuccessful: false,
+    isPasswordConfirmed: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +27,32 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false
+            }
+        case EMAIL_CONFIRMED:
+            return {
+                ...state,
+                isEmailConfirmed: true,
+                idToken: action.idToken
+            }
+        case EMAIL_NOT_CONFIRMED:
+            return {
+                ...state,
+                isEmailConfirmed: false
+            }
+        case REMOVE_ID_TOKEN:
+            return {
+                ...state,
+                idToken: null
+            }
+        case LOGIN_SUCCESSFUL:
+            return {
+                ...state,
+                isLoginSuccessful: action.status
+            }
+        case PASSWORD_CONFIRMED:
+            return {
+                ...state,
+                isPasswordConfirmed: true
             }
         default:
             return state;

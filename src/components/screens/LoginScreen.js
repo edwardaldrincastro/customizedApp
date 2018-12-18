@@ -4,8 +4,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left } from "native-base";
 import { users } from "../data/users";
 import { connect } from "react-redux";
+import { login } from "../../store/actions/loginAuth";
 
-const item = ""
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
@@ -60,28 +60,10 @@ class LoginScreen extends Component {
         }
     }
     loginHandler = () => {
-        // data = this.asyncLoginhandler()
-        // datas = JSON.parse(data)
-        // alert(`${data}.${datas}`)
         if ((this.state.email && this.state.password) !== "") {
+            this.props.fetchLogin(this.state.email, this.state.password)
+            // return this.props.navigation.navigate('Entry')
 
-            // let user = this.state.users
-            // const result = user.filter(word => this.state.email === word.email)
-            // user.map((item, index) => {
-            // const result = user.find(element => element.email === this.state.email)
-            if (this.props.email === this.state.email && this.props.password === this.state.password) {
-                // if (data.email === this.state.email && data.password === this.state.password) {
-                return this.props.navigation.navigate('Entry')
-            } else {
-
-                alert(`Your email or password is incorrect.`)
-                this.setState({
-                    email: "",
-                    password: "",
-                    underlineColor: "white"
-                })
-
-            }
         } else {
             alert("Please input email and/or password.")
             this.setState({
@@ -91,9 +73,18 @@ class LoginScreen extends Component {
 
         }
     }
+    componentDidUpdate() {
+        this.checkLogin()
+    }
 
+    checkLogin = () => {
+        if (this.props.isLoginSuccessful) {
+            this.props.navigation.navigate('Entry')
+        }
+    }
     render() {
         // alert(this.props.firstName)
+        console.log("login state", this.props.navigation.state)
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#212424" }}>
@@ -144,15 +135,6 @@ class LoginScreen extends Component {
                 </View>
             </View>
         );
-    }
-}
-const mapStateToProps = state => {
-    return {
-        firstName: state.signUp.firstName,
-        lastName: state.signUp.lastName,
-        email: state.signUp.email,
-        password: state.signUp.password,
-        birthday: state.signUp.birthday
     }
 }
 
@@ -231,5 +213,19 @@ const styles = StyleSheet.create({
         fontFamily: "Inconsolata-Regular"
     }
 });
-
-export default connect(mapStateToProps)(LoginScreen);
+const mapStateToProps = state => {
+    return {
+        // firstName: state.signUp.firstName,
+        // lastName: state.signUp.lastName,
+        // email: state.signUp.email,
+        // password: state.signUp.password,
+        // birthday: state.signUp.birthday
+        isLoginSuccessful: state.ui.isLoginSuccessful
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchLogin: (email, password) => dispatch(login(email, password))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

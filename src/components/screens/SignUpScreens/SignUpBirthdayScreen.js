@@ -37,6 +37,7 @@ class SignUpBirthdayScreen extends Component {
         })
     }
     render() {
+        console.log(this.props.navigation.state)
         const lastName = this.props.navigation.getParam("lastName", "no last name")
         const firstName = this.props.navigation.getParam("firstName", "no first name")
         const email = this.props.navigation.getParam("email", "no email")

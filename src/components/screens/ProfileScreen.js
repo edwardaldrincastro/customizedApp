@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { connect } from "react-redux";
+import { loginSuccessful } from "../../store/actions/ui";
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -7,12 +9,16 @@ class ProfileScreen extends Component {
     this.state = {
     };
   }
+  logOutHandler = () => {
+    this.props.fetchLogin(false)
+    this.props.navigation.navigate('App')
+  }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Profile Screen </Text>
         <View style={{ flex: 1, alignItems: "center", justifyContent: 'center', }}>
-          <Button title="Log Out" onPress={() => this.props.navigation.navigate('App')} />
+          <Button title="Log Out" onPress={() => this.logOutHandler()} />
         </View>
       </View>
     );
@@ -33,4 +39,14 @@ const styles = StyleSheet.create({
     color: "#FE6A6A"
   }
 })
-export default ProfileScreen;
+const mapStateToProps = state => {
+  return {
+      isLoginSuccessful: state.ui.isLoginSuccessful
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+      fetchLogin: (status) => dispatch(loginSuccessful(status))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import { Header, Left, Switch } from "native-base";
+import { Header, Left } from "native-base";
 import { connect } from "react-redux";
-import { authSignUpEmail } from "../../../store/actions/signUp";
-class SignUpEmailScreen extends Component {
+import { authSignUpPassword } from "../../../store/actions/signUp";
+class SignUpPasswordScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: null,
-            toggleSwitch: true,
+            password: null,
+            confirmPassword: null,
             viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
         Dimensions.addEventListener("change", this.updateStyles)
@@ -26,9 +26,14 @@ class SignUpEmailScreen extends Component {
             viewMode: dims.window.height > 500 ? "portrait" : "landscape"
         })
     }
-    emailChangedHandler = (input) => {
+    passwordChangedHandler = (input) => {
         this.setState({
-            email: input
+            password: input
+        })
+    }
+    confirmPasswordChangedHandler = (input) => {
+        this.setState({
+            confirmPassword: input
         })
     }
     toggleSwitchHandler = () => {
@@ -49,37 +54,28 @@ class SignUpEmailScreen extends Component {
         }
     }
 
+    passwordHandler = () => {
+        // this.props.signUpEmail(this.state.email)
+        if (this.state.password === this.state.confirmPassword) {
+            this.props.signUpPassword(this.props.idToken, this.state.password)
+
+        } else {
+            alert("Password does not match")
+        }
+    }
     componentDidUpdate() {
-        this.checkEmail()
+        this.checkPassword()
     }
 
-    emailHandler = () => {
-        this.props.signUpEmail(this.state.email)
- 
-    }
-    checkEmail = () => {
-        if(this.props.isEmailConfirmed){
-            this.props.navigation.navigate('Password')
+    checkPassword = () => {
+        if (this.props.isPasswordConfirmed) {
+            this.props.navigation.navigate('Birthday')
         }
     }
     render() {
-        
-    console.log("email",this.props.navigation.state)
+        console.log("password",this.props.navigation.state)
         const lastName = this.props.navigation.getParam("lastName", "no last name")
         const firstName = this.props.navigation.getParam("firstName", "no first name")
-        let submitButton =
-            (<View style={styles.nextButton}>
-                {/* <TouchableOpacity onPress={() => this.credentialsHandler(lastName, firstName)}> */}
-                <TouchableOpacity onPress={() => this.emailHandler()}><View style={styles.buttonStyle}>
-                    <Icon name="ios-arrow-forward" size={24} color="#E1E1E1" />
-                </View>
-                </TouchableOpacity>
-            </View>);
-
-        if (this.props.isLoading) {
-            submitButton = <ActivityIndicator />
-        }
-
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#212424" }}>
@@ -88,19 +84,27 @@ class SignUpEmailScreen extends Component {
                     </Left>
                 </Header>
                 <View style={styles.container}>
-                    <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>And your email?</Text>
-                    <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>EMAIL</Text>
-                    <View style={styles.emailInput}>
-                        <TextInput textContentType="emailAddress" onChangeText={(val) => this.emailChangedHandler(val)} underlineColorAndroid="white" style={styles.inputText} />
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>How about your password?</Text>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>PASSWORD</Text>
+                    <View style={styles.inputField}>
+                        <TextInput textContentType="emailAddress" onChangeText={(val) => this.passwordChangedHandler(val)}
+                            underlineColorAndroid="white"
+                            secureTextEntry={true}
+                            style={styles.inputText} />
                     </View>
-                    <View style={{ flexDirection: "row" }}>
-                        <View style={styles.subscribe}>
-                            <Text style={styles.subscribeText}>I'd like to receive marketing and policy communications from Ting and its partners.</Text>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitConfirmTitle : styles.landscapeConfirmTitle}>CONFIRM PASSWORD</Text>
+                    <View style={styles.inputField}>
+                        <TextInput textContentType="emailAddress" onChangeText={(val) => this.confirmPasswordChangedHandler(val)}
+                            underlineColorAndroid="white"
+                            secureTextEntry={true}
+                            style={styles.inputText} />
+                    </View>
+                    <View style={styles.nextButton}>
+                        <TouchableOpacity onPress={() => this.passwordHandler()}><View style={styles.buttonStyle}>
+                            <Icon name="ios-arrow-forward" size={24} color="#E1E1E1" />
                         </View>
-                        <Switch value={this.state.toggleSwitch} onValueChange={this.toggleSwitchHandler} tintColor="#bbb" thumbTintColor="white" onTintColor="#64dd17" />
+                        </TouchableOpacity>
                     </View>
-
-                    {submitButton}
                 </View>
             </View>
         );
@@ -116,28 +120,43 @@ const styles = StyleSheet.create({
     portraitWelcome: {
         color: "#FE6A6A",
         fontSize: 20,
-        marginRight: "50%",
+        right: 45,
+        marginTop: 13,
         marginBottom: 20,
         fontFamily: "Inconsolata-Regular",
     },
     landscapeWelcome: {
         color: "#FE6A6A",
         fontSize: 20,
-        marginRight: "60%",
+        right: 150,
         marginBottom: 20,
         fontFamily: "Inconsolata-Regular",
     },
     portraitTitle: {
         color: "#E1E1E1",
         fontSize: 12,
-        marginRight: "74%",
+        right: 125,
         fontFamily: "Inconsolata-Regular",
     },
     landscapeTitle: {
         color: "#E1E1E1",
         fontSize: 12,
-        marginRight: "76%",
+        right: 223,
         fontFamily: "Inconsolata-Regular",
+    },
+    portraitConfirmTitle: {
+        color: "#E1E1E1",
+        fontSize: 12,
+        right: 101,
+        fontFamily: "Inconsolata-Regular",
+        marginTop: 10
+    },
+    landscapeConfirmTitle: {
+        color: "#E1E1E1",
+        fontSize: 12,
+        right: 199,
+        fontFamily: "Inconsolata-Regular",
+        marginTop: 10
     },
     subscribe: {
         width: "68%"
@@ -147,10 +166,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: "Inconsolata-Regular",
     },
-    emailInput: {
+    inputField: {
         width: "82%",
         height: 35,
-        justifyContent: "center"
+        justifyContent: 'center'
     },
     nextButton: {
         width: 40,
@@ -175,12 +194,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         isLoading: state.ui.isLoading,
-        isEmailConfirmed: state.ui.isEmailConfirmed,
+        idToken: state.ui.idToken,
+        isPasswordConfirmed: state.ui.isPasswordConfirmed
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        signUpEmail: (email) => dispatch(authSignUpEmail(email))
+        signUpPassword: (idToken, password) => dispatch(authSignUpPassword(idToken, password))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpEmailScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPasswordScreen);
